@@ -1,40 +1,45 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import indexModule from '@/components/index'
-import channelModule from '@/components/channel'
-import clomnModule from '@/components/clomn'
-import newsModule from '@/components/news'
-import templateModule from '@/components/template'
+import home from '@/view/home'
+import serviceReg from '@/view/services/service-reg'
+import serviceList from '@/view/services/service-list'
+import apidoc from '@/view/apidoc/upload-apidoc'
+import readme from '@/view/readme'
+import login from '@/view/login'
 
 Vue.use(Router)
 
 export default new Router({
-  history: true,
   routes: [
     {
       path: '/',
-      name: 'indexModule',
-      component: indexModule
+      name: 'home',
+      component: home
     },
     {
-      path: '/channel',
-      name: 'channelModule',
-      component: channelModule
+      path: '/service-reg',
+      name: 'service-reg',
+      component: serviceReg
     },
     {
-      path: '/clomn',
-      name: 'clomnModule',
-      component: clomnModule
+      path: '/service-list',
+      name: 'service-list',
+      component: serviceList
     },
     {
-      path: '/news',
-      name: 'newsModule',
-      component: newsModule
+      path: '/service-edit',
+      name: 'service-edit',
+      component: serviceReg
     },
     {
-      path: '/template',
-      name: 'templateModule',
-      component: templateModule
+      path: '/upload-apidoc',
+      name: 'upload-apidoc',
+      component: apidoc
+    },
+    {
+      path: '/readme',
+      name: 'readme',
+      component: readme
     }
   ]
 })

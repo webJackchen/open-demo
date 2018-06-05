@@ -1,110 +1,73 @@
 <template>
-  <div id="app">
-    <v-hearder></v-hearder>
-    <div class="content">
-      <keep-alive>
-        <router-view/>
-      </keep-alive>
+  <div>
+    <com-message/>
+    <div class="app app-loaded" v-if="isLogin">
+      <div class="app-container app-header-inside-content">
+        <com-sidebar :isLogin="isLogin" />
+        <div class="app-content app-sidebar-left">
+          <com-header/>
+          <com-breadcrumb/>
+          <div class="container">
+            <div id="app">
+              <router-view/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <com-footer/>
     </div>
-    <v-footer></v-footer>
-    
+    <div v-if="!isLogin">
+      <login/>
+    </div>
   </div>
 </template>
 
 <script>
-import hearder from './components/hearder';
-import footer from './components/footer';
-
+import comSidebar from '@/components/com-sidebar'
+import comHeader from '@/components/com-header'
+import comFooter from '@/components/com-footer'
+import comBreadcrumb from '@/components/com-breadcrumb'
+import comMessage from '@/components/com-message'
+import login from './view/login'
 export default {
   name: 'App',
-  data () {
-      return {
-          menus: [
-            {
-                title: '首页',
-                href: '/',
-                active: true
-            },
-            {
-                title: '频道1',
-                href: '/channel'
-            },
-            {
-                title: '栏目',
-                href: '/clomn'
-            },
-            {
-                title: '新闻列表',
-                href: '/news'
-            },
-            {
-                title: '模板中心',
-                href: '/template'
-            }
-          ]
-      }
+  data() {
+    return {
+      isLogin:false
+    }
   },
-  components: {
-    'v-hearder': hearder,
-    'v-footer': footer
-  }
+  mounted() { 
+    this.isLogin=this.$store.state.login.isLogin
+  },
+  components: { comSidebar, comHeader, comFooter, comBreadcrumb, comMessage, login },
+
 }
 </script>
 
+
 <style>
-html, body, div, span, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-abbr, address, cite, code,
-del, dfn, em, img, ins, kbd, q, samp,
-small, strong, sub, sup, var,
-b, i,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section, summary,
-time, mark, audio, video {
-    margin:0;
-    padding:0;
-    border:0;
-    outline:0;
-    font-size:100%;
-    vertical-align:baseline;
-    background:transparent;
+@import "../static/boooya/css/styles.css";
+.app {
+  overflow: hidden;
 }
-h1,h2,h3,h4,h5,h6,em,i {
-    font-weight: 100;
-    font-style: normal
+
+.app-container {
+  height: calc(100vh - 40px);
+  min-height: 680px;
 }
-ul,ol,li {
-    list-style-type: none
+
+.app-content {
+  height: 100% !important;
 }
-a {
-    color: #666;
-    text-decoration: none;
-    outline: 0
-}
-a:hover {
-    text-decoration: none
-}　
+
+.container,
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #eee;
-  font-size: 16px;
+  height: calc(100vh - 180px);
+  min-height: 540px;
 }
-/* 以下是常用样式 */
-/* 左浮动 */
-.pull-left{
-  float: left;
-}
-/* 右浮动 */
-.pull-right {
-  float: right;
-}
-.content {
-  width: 100%;
-  height: calc(100% – 160px);
+
+#app>div {
+  height: 100%;
+  overflow-y: auto;
 }
 </style>
